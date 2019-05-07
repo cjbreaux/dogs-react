@@ -15,12 +15,12 @@ function DogSelect(props){
         <div className='Column'>
           <div className='row'>
             <h1 className='textDog'>Dog Select</h1>
-            <select className='textDog' id="dogInput">
+            <select id="dogInput">
             {props.dogList.map((dogs) =>
-              <option value={dogs}>{dogs}</option>
+              <option className="dogContent" value={dogs}>{dogs}</option>
             )}
             </select>
-            <button className='textDog' type='button' onClick={() => {
+            <button className='buttonDog' type='button' onClick={() => {
               let dogGuess = document.getElementById('dogInput');
               let dogCompare = dogGuess.options[dogGuess.selectedIndex].value;
               console.log(dogCompare);

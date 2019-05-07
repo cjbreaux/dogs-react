@@ -1,5 +1,4 @@
-import React, {Components} from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 
 function WrongGuess(props){
   return (

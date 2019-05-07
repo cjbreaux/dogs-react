@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.scss';
 import DogPic from './components/DogPic';
 import DogSelect from './components/DogSelect';
@@ -83,7 +82,7 @@ class App extends Component{
         <DogPic className='dogShot' dogPicture = {this.state.picture}/>
         <Score score = {this.state.score}/>
         <DogSelect dogList = {this.state.list} compareGuess = {this.compareGuess} showFail={this.state.showFail}/>
-        
+
       </div>
     );
   }
