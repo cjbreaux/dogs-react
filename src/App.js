@@ -7,36 +7,55 @@ import Score from './components/Score';
 
 class App extends Component{
 
-  componentDidMount(){
-    let url = 'https://dog.ceo/api/breeds/image/random';
-    let d = fetch(url).then(response => response.json()).then(
-      function(json) {
-        let picture = json.message;
-        console.log(picture);
+  constructor(props){
+    super(props);
+    this.state = {
+      picture: 'undefined',
+      list: []
+    }
+    this.componentWillMount = this.componentWillMount.bind(this);
+  }
+
+  componentWillMount(){
+    this.getNewPicture();
+    fetch('https://dog.ceo/api/breeds/list/all').then(response => response.json()).then(
+      (json) => {
+        let test = json.message;
+        let dropDownArr = [];
+        Object.keys(test).forEach((element) => {
+        if(test[element].length > 0) {
+          let dogSub = test[element];
+          dogSub.forEach(function(element2) {
+            let join = element + " " + element2;
+            dropDownArr.push(join);
+        }); }
+        else {
+          dropDownArr.push(element);
+          }
+        });
+        this.setState({list: dropDownArr});
       }
     )
   }
 
+  getNewPicture(){
+    let url = 'https://dog.ceo/api/breeds/image/random';
+    fetch(url).then(response => response.json()).then(
+      (json) => {
+        this.setState({picture: json.message})
+      }
+    )
+  };
+
+
+
+
   render(){
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-        <DogPic/>
+        <DogPic dogPicture = {this.state.picture}/>
         <Score/>
-        <DogSelect/>
+        <DogSelect dogList = {this.state.list}/>
       </div>
     );
   }
