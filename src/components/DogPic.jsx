@@ -2,7 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 
+
+
 function DogPic(props){
+
+
+
   console.log(props.dogPicture);
     return(
       <div>

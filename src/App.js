@@ -10,10 +10,12 @@ class App extends Component{
   constructor(props){
     super(props);
     this.state = {
-      picture: 'undefined',
-      list: []
+      picture: '',
+      list: [],
+      breed: ''
     }
     this.componentWillMount = this.componentWillMount.bind(this);
+    this.compareGuess = this.compareGuess.bind(this);
   }
 
   componentWillMount(){
@@ -43,9 +45,22 @@ class App extends Component{
     fetch(url).then(response => response.json()).then(
       (json) => {
         this.setState({picture: json.message})
+        let picString = json.message;
+        let breaked = picString.split('/');
+        let dogTest = breaked[4];
+        this.setState({breed: dogTest})
       }
     )
   };
+
+
+  compareGuess(yourGuess){
+    if(yourGuess === this.state.breed){
+      console.log('You did it bud')
+    } else {
+      console.log('Oh no, you don\'t know dogs')
+    }
+  }
 
 
 
@@ -55,7 +70,7 @@ class App extends Component{
       <div className="App">
         <DogPic dogPicture = {this.state.picture}/>
         <Score/>
-        <DogSelect dogList = {this.state.list}/>
+        <DogSelect dogList = {this.state.list} compareGuess = {this.compareGuess}/>
       </div>
     );
   }
