@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
-import './App.css';
+import './App.scss';
 import DogPic from './components/DogPic';
 import DogSelect from './components/DogSelect';
 import Score from './components/Score';
@@ -12,7 +12,10 @@ class App extends Component{
     this.state = {
       picture: '',
       list: [],
-      breed: ''
+      breed: '',
+      score: 0,
+      showFail: false
+
     }
     this.componentWillMount = this.componentWillMount.bind(this);
     this.compareGuess = this.compareGuess.bind(this);
@@ -47,8 +50,10 @@ class App extends Component{
         this.setState({picture: json.message})
         let picString = json.message;
         let breaked = picString.split('/');
-        let dogTest = breaked[4];
+        let dogTest = breaked[4].replace('-', ' ');
+
         this.setState({breed: dogTest})
+        this.setState({showFail: false})
       }
     )
   };
@@ -57,8 +62,15 @@ class App extends Component{
   compareGuess(yourGuess){
     if(yourGuess === this.state.breed){
       console.log('You did it bud')
+      let scoreAdd = this.state.score + 1;
+      this.getNewPicture();
+      this.setState({score: scoreAdd})
+
+
     } else {
       console.log('Oh no, you don\'t know dogs')
+      this.setState({showFail: true})
+
     }
   }
 
@@ -67,10 +79,11 @@ class App extends Component{
 
   render(){
     return (
-      <div className="App">
-        <DogPic dogPicture = {this.state.picture}/>
-        <Score/>
-        <DogSelect dogList = {this.state.list} compareGuess = {this.compareGuess}/>
+      <div id='container' className="App">
+        <DogPic className='dogShot' dogPicture = {this.state.picture}/>
+        <Score score = {this.state.score}/>
+        <DogSelect dogList = {this.state.list} compareGuess = {this.compareGuess} showFail={this.state.showFail}/>
+        
       </div>
     );
   }
