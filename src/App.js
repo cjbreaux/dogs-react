@@ -3,6 +3,10 @@ import './App.scss';
 import DogPic from './components/DogPic';
 import DogSelect from './components/DogSelect';
 import Score from './components/Score';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import scoreReducer from './reducers';
+import { receiveScore } from './actions/index'
 
 class App extends Component{
 
@@ -14,7 +18,6 @@ class App extends Component{
       breed: '',
       score: 0,
       showFail: false
-
     }
     this.componentWillMount = this.componentWillMount.bind(this);
     this.compareGuess = this.compareGuess.bind(this);
@@ -63,7 +66,8 @@ class App extends Component{
       console.log('You did it bud')
       let scoreAdd = this.state.score + 1;
       this.getNewPicture();
-      this.setState({score: scoreAdd})
+      // this.setState({score: scoreAdd})
+      this.props.dispatch(receiveScore(scoreAdd))
 
 
     } else {
@@ -77,10 +81,11 @@ class App extends Component{
 
 
   render(){
+    console.log(this.props);
     return (
       <div id='container' className="App">
         <DogPic className='dogShot' dogPicture = {this.state.picture}/>
-        <Score score = {this.state.score}/>
+        <Score />
         <DogSelect dogList = {this.state.list} compareGuess = {this.compareGuess} showFail={this.state.showFail}/>
 
       </div>
@@ -88,5 +93,18 @@ class App extends Component{
   }
 }
 
+// App.propTypes = {
+//   picture: PropTypes.string,
+//   list: PropTypes.array,
+//   breed: PropTypes.string,
+//   score: PropTypes.number,
+//   showFail: PropTypes.bool
+// }
+//
+// const mapStateToProps = state => {
+//   return{
+//     picture: state.picture
+//   }
+// }
 
-export default App;
+export default connect()(App);

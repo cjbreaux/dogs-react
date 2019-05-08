@@ -1,12 +1,15 @@
 import constants from './../constants';
-const { type } = constants;
+const { type, initialState } = constants;
 
-export default (state = {}, action) => {
+export default (state = initialState, action) => {
   const {score} = action;
   switch(action.type) {
     case type.ADD_SCORE:
-      return score;
-      default:
+    let newState = Object.assign({}, state, {
+      score
+    })
+    return newState;
+    default:
       return state;
   }
 }
