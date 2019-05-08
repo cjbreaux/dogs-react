@@ -1,5 +1,5 @@
-import * as types from './ActionTypes';
+import * as type from './ActionTypes';
 
 export default {
-  types
+  type
 };
