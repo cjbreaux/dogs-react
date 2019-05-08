@@ -63,7 +63,7 @@ class App extends Component{
   compareGuess(yourGuess){
     if(yourGuess === this.state.breed){
       console.log('You did it bud')
-      let scoreAdd = this.state.score + 1;
+      let scoreAdd = this.props.score + 1;
       this.getNewPicture();
       // this.setState({score: scoreAdd})
       this.props.dispatch(receiveScore(scoreAdd))
@@ -97,10 +97,10 @@ class App extends Component{
 //   showFail: PropTypes.bool
 // }
 //
-// const mapStateToProps = state => {
-//   return{
-//     picture: state.picture
-//   }
-// }
+const mapStateToProps = state => {
+  return{
+    score: state.playerInfo.score
+  }
+}
 
-export default connect()(App);
+export default connect(mapStateToProps)(App);
