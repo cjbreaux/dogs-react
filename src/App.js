@@ -6,17 +6,15 @@ import Score from './components/Score';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import scoreReducer from './reducers';
-import { receiveScore } from './actions/index'
+import { receiveScore, updatePic } from './actions/index'
 
 class App extends Component{
 
   constructor(props){
     super(props);
     this.state = {
-      picture: '',
       list: [],
       breed: '',
-      score: 0,
       showFail: false
     }
     this.componentWillMount = this.componentWillMount.bind(this);
@@ -49,7 +47,8 @@ class App extends Component{
     let url = 'https://dog.ceo/api/breeds/image/random';
     fetch(url).then(response => response.json()).then(
       (json) => {
-        this.setState({picture: json.message})
+        console.log(json.message);
+        this.props.dispatch(updatePic(json.message))
         let picString = json.message;
         let breaked = picString.split('/');
         let dogTest = breaked[4].replace('-', ' ');
@@ -77,14 +76,11 @@ class App extends Component{
     }
   }
 
-
-
-
   render(){
     console.log(this.props);
     return (
       <div id='container' className="App">
-        <DogPic className='dogShot' dogPicture = {this.state.picture}/>
+        <DogPic className='dogShot'/>
         <Score />
         <DogSelect dogList = {this.state.list} compareGuess = {this.compareGuess} showFail={this.state.showFail}/>
 

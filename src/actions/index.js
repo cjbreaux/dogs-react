@@ -7,3 +7,10 @@ export function receiveScore(scoreToUpdate) {
     score: scoreToUpdate
   }
 }
+
+export function updatePic(url) {
+  return {
+    type: type.UPDATE_PIC,
+    picture: url
+  }
+}
