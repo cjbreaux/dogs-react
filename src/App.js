@@ -6,7 +6,7 @@ import Score from './components/Score';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import scoreReducer from './reducers';
-import { receiveScore, updatePic } from './actions/index'
+import { receiveScore, updatePic, watchFirebaseHighscoreRef } from './actions/index'
 
 class App extends Component{
 
@@ -22,6 +22,7 @@ class App extends Component{
   }
 
   componentWillMount(){
+    this.props.dispatch(watchFirebaseHighscoreRef());
     this.getNewPicture();
     fetch('https://dog.ceo/api/breeds/list/all').then(response => response.json()).then(
       (json) => {
