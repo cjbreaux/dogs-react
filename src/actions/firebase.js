@@ -40,9 +40,18 @@ export function watchLatestPlayer(){
 export function checkPlayerKey(playerKey) {
   return function(dispatch){
     const player = highScores.child(playerKey)
-    player.once('value').then(snapshot => {
+    player.once('value', snapshot => {
       const values = snapshot.val();
       dispatch(returningPlayer(values))
     })
+  }
+}
+
+export function updateScore(playerKey, score) {
+  return function(dispatch) {
+    const playerToUpdate = highScores.child(playerKey);
+    playerToUpdate.update({
+      savedScore: score
+    });
   }
 }
