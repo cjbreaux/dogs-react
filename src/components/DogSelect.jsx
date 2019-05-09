@@ -16,8 +16,8 @@ function DogSelect(props){
           <div className='row'>
             <h1 className='textDog'>Dog Select</h1>
             <select id="dogInput">
-            {props.dogList.map((dogs) =>
-              <option className="dogContent" value={dogs}>{dogs}</option>
+            {props.dogList.map((dogs, index) =>
+              <option key={index} className="dogContent" value={dogs}>{dogs}</option>
             )}
             </select>
             <button className='buttonDog' type='button' onClick={() => {
