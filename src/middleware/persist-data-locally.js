@@ -4,7 +4,7 @@ const persistDataLocally = store => next => action => {
   next(action);
   const state = store.getState();
   const key = state.playerInfo.playerKey;
-  console.log('Local Storage', key);
+  localStorage['playerKey'] = key
 }
 
 export default persistDataLocally;

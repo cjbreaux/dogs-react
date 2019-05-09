@@ -23,7 +23,6 @@ function DogSelect(props){
             <button className='buttonDog' type='button' onClick={() => {
               let dogGuess = document.getElementById('dogInput');
               let dogCompare = dogGuess.options[dogGuess.selectedIndex].value;
-              console.log(dogCompare);
               props.compareGuess(dogCompare);
             }}>Choose</button>
           </div>

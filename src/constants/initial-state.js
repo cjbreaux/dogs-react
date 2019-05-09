@@ -5,5 +5,6 @@ export const initialState = {
   score: 0,
   showFail: false,
   highScores: [],
-  playerKey: ''
+  playerKey: '',
+  name: ''
 };

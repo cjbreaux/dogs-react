@@ -4,7 +4,8 @@ import DogPic from './components/DogPic';
 import DogSelect from './components/DogSelect';
 import Score from './components/Score';
 import { connect } from 'react-redux';
-import { receiveScore, updatePic, watchFirebaseHighscoreRef, watchLatestPlayer } from './actions/index'
+import { receiveScore, updatePic, getPlayerKey } from './actions/index'
+import { watchFirebaseHighscoreRef, checkPlayerKey } from './actions/firebase'
 import HighScores from './components/HighScores';
 
 class App extends Component{
@@ -21,8 +22,19 @@ class App extends Component{
   }
 
   componentWillMount(){
+    let retrievedState;
+    try {
+      retrievedState = localStorage.getItem('playerKey');
+      if (retrievedState === null) {
+        retrievedState = '';
+      } else {
+        this.props.dispatch(getPlayerKey(retrievedState));
+        this.props.dispatch(checkPlayerKey(retrievedState));
+      }
+    } catch (err) {
+      retrievedState = '';
+    }
     this.props.dispatch(watchFirebaseHighscoreRef());
-    // this.props.dispatch(watchLatestPlayer());
     this.getNewPicture();
     fetch('https://dog.ceo/api/breeds/list/all').then(response => response.json()).then(
       (json) => {
@@ -63,7 +75,6 @@ class App extends Component{
 
   compareGuess(yourGuess){
     if(yourGuess === this.state.breed){
-      console.log('You did it bud')
       let scoreAdd = this.props.score + 1;
       this.getNewPicture();
       // this.setState({score: scoreAdd})
@@ -71,7 +82,6 @@ class App extends Component{
 
 
     } else {
-      console.log('Oh no, you don\'t know dogs')
       this.setState({showFail: true})
 
     }

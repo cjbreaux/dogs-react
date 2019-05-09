@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import '../Score.scss';
 import { connect } from 'react-redux';
-import { addHighScore, watchLatestPlayer } from './../actions';
+import { addHighScore, watchLatestPlayer } from '../actions/firebase'
 
 function Score(props){
   let submitScore = null;
