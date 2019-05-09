@@ -4,5 +4,6 @@ export const initialState = {
   breed: '',
   score: 0,
   showFail: false,
-  highScores: []
+  highScores: [],
+  playerKey: ''
 };

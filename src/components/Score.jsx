@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import '../Score.scss';
 import { connect } from 'react-redux';
-import { addHighScore } from './../actions';
+import { addHighScore, watchLatestPlayer } from './../actions';
 
 function Score(props){
   let submitScore = null;
@@ -14,6 +14,7 @@ function Score(props){
   function sendScoreToFirebase() {
     const { dispatch } = props;
     dispatch(addHighScore(_name.value, props.score))
+    dispatch(watchLatestPlayer());
   }
 
     return(

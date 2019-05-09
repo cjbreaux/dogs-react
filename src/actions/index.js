@@ -9,7 +9,7 @@ export function addHighScore(_name, score) {
   return () => highScores.push({
     name: _name,
     savedScore: score
-  });
+  }).getKey();
 }
 
 export function watchFirebaseHighscoreRef() {
@@ -26,6 +26,21 @@ export function watchFirebaseHighscoreRef() {
       })
       dispatch(saveHighScore(newArr));
     })
+  }
+}
+
+export function watchLatestPlayer(){
+  return function(dispatch){
+    highScores.limitToLast(1).on('child_added', data => {
+      dispatch(getPlayerKey(data.key));
+    })
+  }
+}
+
+export function getPlayerKey(playerKey) {
+  return {
+    type: type.UPDATE_KEY,
+    playerKey: playerKey
   }
 }
 

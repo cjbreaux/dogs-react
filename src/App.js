@@ -4,7 +4,7 @@ import DogPic from './components/DogPic';
 import DogSelect from './components/DogSelect';
 import Score from './components/Score';
 import { connect } from 'react-redux';
-import { receiveScore, updatePic, watchFirebaseHighscoreRef } from './actions/index'
+import { receiveScore, updatePic, watchFirebaseHighscoreRef, watchLatestPlayer } from './actions/index'
 import HighScores from './components/HighScores';
 
 class App extends Component{
@@ -22,6 +22,7 @@ class App extends Component{
 
   componentWillMount(){
     this.props.dispatch(watchFirebaseHighscoreRef());
+    // this.props.dispatch(watchLatestPlayer());
     this.getNewPicture();
     fetch('https://dog.ceo/api/breeds/list/all').then(response => response.json()).then(
       (json) => {

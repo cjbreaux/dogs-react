@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 function HighScores(props) {
   return(
     <div>
+      <p>Current top scores:</p>
       <ul>
         {props.highScores.slice(0,3).map(function(entry, index){
           return <li key={index}>{entry.name} - {entry.savedScore}</li>

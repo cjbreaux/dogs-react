@@ -3,7 +3,7 @@ const { type, initialState } = constants;
 
 export default (state = initialState, action) => {
   let newState;
-  const {score, picture, highScores} = action;
+  const {score, picture, highScores, playerKey} = action;
   switch(action.type) {
     case type.ADD_SCORE:
      newState = Object.assign({}, state, {
@@ -18,6 +18,11 @@ export default (state = initialState, action) => {
     case type.UPDATE_SCORES:
     newState = Object.assign({}, state, {
       highScores
+    })
+    return newState;
+    case type.UPDATE_KEY:
+    newState = Object.assign({}, state, {
+      playerKey
     })
     return newState;
     default:
