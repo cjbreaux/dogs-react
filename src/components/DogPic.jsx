@@ -4,7 +4,6 @@ import '../DogPics.scss';
 import { connect } from 'react-redux';
 
 function DogPic(props){
-  console.log(props);
     return(
       <div className='center'>
         <h1 className='text'>What kind of doggie is this?</h1>
@@ -18,7 +17,6 @@ DogPic.propTypes = {
 }
 
 const mapStateToProps = state => {
-  console.log(state.playerInfo.picture);
   return {
     dogPicture: state.playerInfo.picture
   }

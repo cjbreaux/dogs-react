@@ -17,16 +17,14 @@ export function watchFirebaseHighscoreRef() {
   return function (dispatch) {
     highScores.on('value', data => {
       let entries = Object.entries(data.val());
-      console.log(entries);
+      arr = [];
       entries.forEach(function(entry) {
         arr.push({name: entry[1].name, savedScore: entry[1].savedScore});
       })
-      console.log(arr);
       let newArr = arr.sort(function(a,b) {
-        console.log(b.savedScore);
         return (b.savedScore - a.savedScore);
       })
-      console.log(newArr);
+      dispatch(saveHighScore(newArr));
     })
   }
 }
@@ -42,5 +40,12 @@ export function updatePic(url) {
   return {
     type: type.UPDATE_PIC,
     picture: url
+  }
+}
+
+function saveHighScore(highScoreArr) {
+  return {
+    type: type.UPDATE_SCORES,
+    highScores: highScoreArr
   }
 }

@@ -4,9 +4,8 @@ import DogPic from './components/DogPic';
 import DogSelect from './components/DogSelect';
 import Score from './components/Score';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import scoreReducer from './reducers';
 import { receiveScore, updatePic, watchFirebaseHighscoreRef } from './actions/index'
+import HighScores from './components/HighScores';
 
 class App extends Component{
 
@@ -78,9 +77,9 @@ class App extends Component{
   }
 
   render(){
-    console.log(this.props);
     return (
       <div id='container' className="App">
+        <HighScores />
         <DogPic className='dogShot'/>
         <Score />
         <DogSelect dogList = {this.state.list} compareGuess = {this.compareGuess} showFail={this.state.showFail}/>
@@ -89,7 +88,7 @@ class App extends Component{
     );
   }
 }
-
+//
 // App.propTypes = {
 //   picture: PropTypes.string,
 //   list: PropTypes.array,
@@ -97,7 +96,7 @@ class App extends Component{
 //   score: PropTypes.number,
 //   showFail: PropTypes.bool
 // }
-//
+
 const mapStateToProps = state => {
   return{
     score: state.playerInfo.score

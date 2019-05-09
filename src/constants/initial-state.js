@@ -3,5 +3,6 @@ export const initialState = {
   list: [],
   breed: '',
   score: 0,
-  showFail: false
+  showFail: false,
+  highScores: []
 };
